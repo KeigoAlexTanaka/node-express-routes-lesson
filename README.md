@@ -4,7 +4,8 @@
 
 - Start building a REST-ful structure for our app
 - Separate routes from server logic
-- 
+- Access user-specified parameters
+- Handle errors for routes that don't exist
 
 # App setup!!!
 
