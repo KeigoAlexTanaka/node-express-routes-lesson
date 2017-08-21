@@ -48,11 +48,11 @@ Where:
 - `PATH` is is a path on the server
 - `HANDLER` is the function executed when the path matches.
 
-# More Routes and Adding Params
+# More Routes!
 
 Of course, we want to do more with our app than just saying "hello world". We can do this by adding more routes to our app.
 
-### Add an error handler
+## Add an error handler
 
 ```js
 // get anything that hasn't already been matched
@@ -66,7 +66,7 @@ Now, instead of saying "CANNOT `/GET`" on all the routes we haven't set up, it'l
 
 ***Order matters here.*** If we put our error handler above our root route, we won't ever be able to get to it, since the `'*'` catches the request before it gets to the `'/'`. 
 
-### Add our first additional route
+## Add our first additional route
 
 Since this is a quotes app, we need to have a route that gives information about quotes!
 
@@ -119,7 +119,13 @@ app.get('/quotes', (req, res) => {
 });
 ```
 
-### Params
+## 🚀 LAB!
+
+Catch up in `quotes-begin`.
+- Within `quotes-begin`, run `npm install` to install the dependencies.
+- In `server.js`, add a route for GETting `/quotes` that sends back the data in `./db/quotes-info.js`.
+
+# Params
 
 What if we only want information about _one_ quote, though? We can do that using parameters, or params.
 
@@ -153,7 +159,8 @@ This returns the quote object from my quotes array where the id of the object ma
 
 ## 🚀 Lab!
 
-Catch up in the app you've been working in. Once again, no copy-pasting!
+Catch up in `quotes-begin`.
+- In `server.js`, add a route for GETting `quotes/:id`, where `:id` is a number passed in from the server. The app should send back data about one quote with that particular ID.
 
 # Separating Concerns
 
@@ -205,9 +212,19 @@ const quoteRoutes = require('./routes/quote-routes');
 app.use('/quotes', quoteRoutes);
 ```
 
-We can create and import as many routes as we want. 
+We can create and import as many routes as we want.
 
-### Final step: serving an index page
+## 🚀 LAB!
+
+Catch up in `quotes-begin`.
+
+- Create a routes folder.
+- Within that routes folder, create a file `quote-routes.js`.
+- Write the routes for the quotes.
+- In `server.js`, require the new route file.
+- Tell the app to use the `quotes` endpoint and pass all actions relating to that endpoint to our new route.
+
+# Final step: serving an index page
 
 Instead of just sending back json data, or "Hello World", it would be kind of nice if our app sent back an actual index page. Here's how we can set that up:
 
