@@ -5,6 +5,12 @@
 - Start building a REST-ful structure for our app
 - 
 
+# App setup!!!
+
+Let's rebuild an app that looks just like what Kate did in her lecture.
+
+By the end of it, we should be able to go through 
+
 # More Routes and Adding Params
 
 Of course, we want to do more with our app than just saying "hello world". We can do this by adding more routes to our app.
@@ -14,9 +20,7 @@ Of course, we want to do more with our app than just saying "hello world". We ca
 ```js
 // get anything that hasn't already been matched
 app.get('*', (req, res) => {
-    // create a new error
-    const err = new Error('not found!');
-    // and send a response
+    // send a response with status 404
     res.status(404).send(err);
 });
 ```
@@ -27,11 +31,11 @@ Now, instead of saying "CANNOT `/GET`" on all the routes we haven't set up, it'l
 
 ### Add our first additional route
 
-Since this is a movies app, we need to have a route that gives information about movies!
+Since this is a quotes app, we need to have a route that gives information about quotes!
 
 ```js
-app.get('/movies', (req, res) => {
-  res.send('Info about movies!');
+app.get('/quotes', (req, res) => {
+  res.send('Info about quotes!');
 });
 ```
 
@@ -39,26 +43,29 @@ But let's say we wanted to send back JSON data, for example, instead of just pla
 
 
 ```js
-app.get('/movies', (req, res) => {
+app.get('/quotes', (req, res) => {
   res.json({
-      message: 'ok',
-      movies: [
-          {
-              id: 1,
-              title: 'Back to the Future',
-              year: 1985,
-          },
-          {
-              id: 2,
-              title: 'Back to the Future Part II',
-              year: 1989,
-          },
-          {
-              id: 3,
-              title: 'Back to the Future Part III',
-              year: 1990,
-          },
-      ]
+    message: 'ok',
+    quotes: [
+      {
+        id: 1,
+        content: 'Sometimes you win, sometimes you learn!',
+        author: 'unknown',
+        genre_type: 'motivational',
+      },
+      {
+        id: 2,
+        content: 'Do or do not, there is no try.',
+        author: 'Yoda',
+        genre_type: 'motivational',
+      },
+      {
+        id: 3,
+        content: 'A simple \'Hello\' could lead to a million things.',
+        author: 'unknown',
+        genre_type: 'motivational',
+      },
+    ]
   });
 });
 ```
@@ -66,20 +73,20 @@ app.get('/movies', (req, res) => {
 We can also put our data into a separate file and import it, using `module.exports`:
 
 ```js
-const movies = require('./db/movies-info');
-app.get('/movies', (req, res) => {
+const quotes = require('./db/quotes-info');
+app.get('/quotes', (req, res) => {
   res.json({
     message: 'ok',
-    data: movies,
+    data: quotes,
   });
 });
 ```
 
 ### Params
 
-What if we only want information about _one_ movie, though? We can do that using parameters, or params.
+What if we only want information about _one_ quote, though? We can do that using parameters, or params.
 
-A route with params looks like this: `/movies/:id`. The `id` stands for the variable parameter, which we can access on the request object, like so: `req.params.id`.
+A route with params looks like this: `/quotes/:id`. The `id` stands for the variable parameter, which we can access on the request object, like so: `req.params.id`.
 
 So if I was to say something like:
 
@@ -94,18 +101,18 @@ I could go to any endpoint on localhost and get the text "[whatever thing I put 
 I can also use the params to programmatically get information from my database, like so:
 
 ```js
-app.get('/movies/:id', (req, res) => {
-  const requestedMovie = movies.filter((movie) => {
-    return movie.id == req.params.id;
+app.get('/quotes/:id', (req, res) => {
+  const requestedQuote = quotes.filter((quote) => {
+    return quote.id == req.params.id;
   });
   res.json({
     message: 'ok',
-    data: requestedMovie[0],
+    data: requestedQuote[0],
   });
 });
 ```
 
-This returns the movie object from my movies array where the id of the object matches the ID that's been passed in the params.
+This returns the quote object from my quotes array where the id of the object matches the ID that's been passed in the params.
 
 ## 🚀 Lab!
 
@@ -113,52 +120,52 @@ Catch up in the app you've been working in. Once again, no copy-pasting!
 
 # Separating Concerns
 
-Now, leaving all our routes in our `app.js` may _seem_ like a good idea, but once our app starts to scale, we need to start _separating our concerns_. The MVC pattern itself places a lot of emphasis on modularity, as does node as a whole. 
+Now, leaving all our routes in our `server.js` may _seem_ like a good idea, but once our app starts to scale, we need to start _separating our concerns_. The MVC pattern itself places a lot of emphasis on modularity, as does node as a whole. 
 
-One way we can improve the modularity of our apps is by taking the routes out of `app.js` and putting them in their own routes directory. 
+One way we can improve the modularity of our apps is by taking the routes out of `server.js` and putting them in their own routes directory. 
 
 - `mkdir routes` & cd into it
-- `touch movie-routes.js`
+- `touch quote-routes.js`
 
 ### Initializing Express Router
 
-In `routes/movie-routes.js`:
+In `routes/quote-routes.js`:
 
 ```js
 const express = require('express');
-const movieRoutes = express.Router();
+const quoteRoutes = express.Router();
 ```
 
 What this does is it initializes a new instance of express's router. Instead of having to say `app.get(whatever)` for all our different endpoints, we can create multiple instances of express router and use them for individual endpoints.
 
-So, we know we're using `/movies` as an endpoint. Our `movieRoutes` will control all the endpoints for `/movies`. So, in `movie-routes`, we can say:
+So, we know we're using `/quotes` as an endpoint. Our `quoteRoutes` will control all the endpoints for `/quotes`. So, in `quote-routes`, we can say:
 
 ```js
-// still have to import the movie data
-const movieInfo = require('../db/movies-info');
+// still have to import the quote data
+const quoteInfo = require('../db/quotes-info');
 
-// the root route, `/movies`
-movieRoutes.get('/', (req, res) => {
+// the root route, `/quotes`
+quoteRoutes.get('/', (req, res) => {
   res.json({
     message: 'ok',
-    data: movies,
+    data: quotes,
   });
 });
 
 // need to export the files
-module.exports = movieRoutes;
+module.exports = quoteRoutes;
 ```
 
-We can move over the `/movies/:id` route as well.
+We can move over the `/quotes/:id` route as well.
 
 ### Telling our app to use the new route
 
-Now, in `app.js`, we can import the new route, like so:
+Now, in `server.js`, we can import the new route, like so:
 
 ```js
 // below the index route
-const movieRoutes = require('./routes/movie-routes');
-app.use('/movies', movieRoutes);
+const quoteRoutes = require('./routes/quote-routes');
+app.use('/quotes', quoteRoutes);
 ```
 
 We can create and import as many routes as we want. 
@@ -169,7 +176,7 @@ Instead of just sending back json data, or "Hello World", it would be kind of ni
 
 We first add a new directory called `public` and create an `index.html`. 
 
-Then, we need to tell our `app.js` where to look for static files.
+Then, we need to tell our `server.js` where to look for static files.
 
 ```js
 // directly beneath where we set up the logger
