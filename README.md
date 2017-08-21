@@ -9,7 +9,40 @@
 
 Let's rebuild an app that looks just like what Kate did in her lecture.
 
-By the end of it, we should be able to go through 
+## Another look at our first route
+
+In `server.js`:
+
+```js
+// index route
+app.get('/', (req, res) => {
+    res.send('Hello world!');
+});
+```
+
+This is another method on the app object. It describes a `GET` request to the root route of the app.
+
+- It takes a string and a callback
+- The callback takes two arguments, `req` and `res`.
+    - `req` stands for the request object received from the browser
+    - `res` stands for the response object that will be sent back to the browser.
+- Within the callback, we access a method on the response object in order to send 'Hello world!'.
+
+Now, when we run `npm run dev` and visit `localhost:3000`, we see 'Hello world!' rendered in the browser.
+
+#### [FROM THE EXPRESS DOCS](https://expressjs.com/en/starter/basic-routing.html):
+
+Route definitions always take the same basic structure:
+
+```js
+app.METHOD(PATH, HANDLER);
+```
+
+Where:
+- `app` is an instance of express
+- `METHOD` is an HTTP request method, in lowercase
+- `PATH` is is a path on the server
+- `HANDLER` is the function executed when the path matches.
 
 # More Routes and Adding Params
 
@@ -19,7 +52,7 @@ Of course, we want to do more with our app than just saying "hello world". We ca
 
 ```js
 // get anything that hasn't already been matched
-app.get('*', (req, res) => {
+app.use('*', (req, res) => {
     // send a response with status 404
     res.status(404).send(err);
 });
