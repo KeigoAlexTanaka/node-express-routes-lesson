@@ -9,6 +9,8 @@
 
 Let's rebuild an app that looks just like what Kate did in her lecture.
 
+By the end, we'll have an app that says "Hello World!" and runs on port 3000.
+
 ## Another look at our first route
 
 In `server.js`:
@@ -43,6 +45,13 @@ Where:
 - `METHOD` is an HTTP request method, in lowercase
 - `PATH` is is a path on the server
 - `HANDLER` is the function executed when the path matches.
+
+## 🚀 LAB!!
+
+- Make a new directory `in-class-quotes`
+- Within that directory, create a `server.js`
+- Run `npm init` and install our dependencies, `express` and `morgan`
+- Following the notes from last lecture, create a `server.js` that says "Hello World!"
 
 # More Routes and Adding Params
 
@@ -106,7 +115,7 @@ app.get('/quotes', (req, res) => {
 We can also put our data into a separate file and import it, using `module.exports`:
 
 ```js
-const quotes = require('./db/quotes-info');
+const quotes = require('./db/quotes-data');
 app.get('/quotes', (req, res) => {
   res.json({
     message: 'ok',
@@ -175,7 +184,7 @@ So, we know we're using `/quotes` as an endpoint. Our `quoteRoutes` will control
 
 ```js
 // still have to import the quote data
-const quoteInfo = require('../db/quotes-info');
+const quoteInfo = require('../db/quotes-data');
 
 // the root route, `/quotes`
 quoteRoutes.get('/', (req, res) => {
@@ -228,7 +237,7 @@ Now we can add JavaScript to that HTML file to make requests to our backend.
 
 ## 🚀 Lab!
 
-Check out [this repo](https://git.generalassemb.ly/wdi-nyc-delorean/LAB_U02_D05_Candy-Routes) and follow the instructions you find there!
+Check out [this repo](https://git.generalassemb.ly/wdi-nyc-dresselhaus/LAB_U02_D06_Candy-Routes) and follow the instructions you find there!
 
 # Recap!
 

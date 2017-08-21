@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-const quoteRoutes = require('/routes/quote-routes');
+const quoteRoutes = require('./routes/quote-routes');
 app.use('/quotes', quoteRoutes);
 
 app.use('*', (req, res) => {
