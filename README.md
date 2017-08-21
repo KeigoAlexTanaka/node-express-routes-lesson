@@ -3,6 +3,7 @@
 ### Learning Objectives:
 
 - Start building a REST-ful structure for our app
+- Separate routes from server logic
 - 
 
 # App setup!!!
@@ -45,13 +46,6 @@ Where:
 - `METHOD` is an HTTP request method, in lowercase
 - `PATH` is is a path on the server
 - `HANDLER` is the function executed when the path matches.
-
-## 🚀 LAB!!
-
-- Make a new directory `in-class-quotes`
-- Within that directory, create a `server.js`
-- Run `npm init` and install our dependencies, `express` and `morgan`
-- Following the notes from last lecture, create a `server.js` that says "Hello World!"
 
 # More Routes and Adding Params
 
