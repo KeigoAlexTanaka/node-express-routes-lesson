@@ -20,7 +20,7 @@ Your app should have the following routes:
 Bonus:
 * add some pictures of candies and display it on the page when a certain endpoint is hit.
 
-### Once You're Satisfied:
+### Once You are Satisfied:
 
 Share your link, **of your locally running web server**, using NGROK:
 
