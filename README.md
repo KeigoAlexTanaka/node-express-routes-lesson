@@ -183,6 +183,8 @@ const quoteRoutes = express.Router();
 
 What this does is it initializes a new instance of express's router. Instead of having to say `app.get(whatever)` for all our different endpoints, we can create multiple instances of express router and use them for individual endpoints.
 
+[HERE](http://expressjs.com/en/api.html#express.router) is the docs for Express Router. Check them out!
+
 So, we know we're using `/quotes` as an endpoint. Our `quoteRoutes` will control all the endpoints for `/quotes`. So, in `quote-routes`, we can say:
 
 ```js
@@ -225,7 +227,7 @@ Catch up in `quotes-begin`.
 - In `server.js`, require the new route file.
 - Tell the app to use the `quotes` endpoint and pass all actions relating to that endpoint to our new route.
 
-# Final step: serving an index page
+# Serving an index page(if time permits)
 
 Instead of just sending back json data, or "Hello World", it would be kind of nice if our app sent back an actual index page. Here's how we can set that up:
 
