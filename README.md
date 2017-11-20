@@ -9,7 +9,7 @@
 
 # App setup!!!
 
-Let's rebuild an app that looks just like what Kate did in her lecture.
+Let's rebuild an app that looks just like the one we built in the morning.
 
 By the end, we'll have an app that says "Hello World!" and runs on port 3000.
 
@@ -64,7 +64,7 @@ app.use('*', (req, res) => {
 
 Now, instead of saying "CANNOT `/GET`" on all the routes we haven't set up, it'll send back an error instead.
 
-***Order matters here.*** If we put our error handler above our root route, we won't ever be able to get to it, since the `'*'` catches the request before it gets to the `'/'`. 
+***Order matters here.*** If we put our error handler above our root route, we won't ever be able to get to it, since the `'*'` catches the request before it gets to the `'/'`.
 
 ## Add our first additional route
 
@@ -123,7 +123,8 @@ app.get('/quotes', (req, res) => {
 
 Catch up in `quotes-begin`.
 - Within `quotes-begin`, run `npm install` to install the dependencies.
-- In `server.js`, add a route for GETting `/quotes` that sends back the data in `./db/quotes-info.js`.
+- In `server.js`, add a route for GETting `/quotes` that sends back the data in `./db/quotes-data.js`.
+- Also, what file we included to ignore node_modules and not push it to gitHub? Don't forget to include it ;)
 
 # Params
 
@@ -164,9 +165,9 @@ Catch up in `quotes-begin`.
 
 # Separating Concerns
 
-Now, leaving all our routes in our `server.js` may _seem_ like a good idea, but once our app starts to scale, we need to start _separating our concerns_. The MVC pattern itself places a lot of emphasis on modularity, as does node as a whole. 
+Now, leaving all our routes in our `server.js` may _seem_ like a good idea, but once our app starts to scale, we need to start _separating our concerns_. The MVC pattern itself places a lot of emphasis on modularity, as does node as a whole.
 
-One way we can improve the modularity of our apps is by taking the routes out of `server.js` and putting them in their own routes directory. 
+One way we can improve the modularity of our apps is by taking the routes out of `server.js` and putting them in their own routes directory.
 
 - `mkdir routes` & cd into it
 - `touch quote-routes.js`
@@ -228,7 +229,7 @@ Catch up in `quotes-begin`.
 
 Instead of just sending back json data, or "Hello World", it would be kind of nice if our app sent back an actual index page. Here's how we can set that up:
 
-We first add a new directory called `public` and create an `index.html`. 
+We first add a new directory called `public` and create an `index.html`.
 
 Then, we need to tell our `server.js` where to look for static files.
 
@@ -237,7 +238,7 @@ Then, we need to tell our `server.js` where to look for static files.
 app.use(express.static('public'));
 ```
 
-Finally, we tell our root route to send the `index.html` file 
+Finally, we tell our root route to send the `index.html` file
 
 ```js
 app.get('/', (req, res) => {
@@ -249,7 +250,7 @@ Now we can add JavaScript to that HTML file to make requests to our backend.
 
 ## 🚀 Lab!
 
-Check out [this repo](https://git.generalassemb.ly/wdi-nyc-dresselhaus/LAB_U02_D06_Candy-Routes) and follow the instructions you find there!
+Check out [HERE](./lab/README.md) and follow the instructions you find there!
 
 # Recap!
 

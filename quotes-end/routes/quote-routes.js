@@ -20,4 +20,3 @@ quoteRouter.get('/:id', (req, res) => {
 });
 
 module.exports = quoteRouter;
-
