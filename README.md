@@ -227,7 +227,7 @@ Catch up in `quotes-begin`.
 - In `server.js`, require the new route file.
 - Tell the app to use the `quotes` endpoint and pass all actions relating to that endpoint to our new route.
 
-# Serving an index page(if time permits)
+# Serving an index page (if time permits)
 
 Instead of just sending back json data, or "Hello World", it would be kind of nice if our app sent back an actual index page. Here's how we can set that up:
 
