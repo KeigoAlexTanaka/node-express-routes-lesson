@@ -52,15 +52,6 @@ Where:
 
 Of course, we want to do more with our app than just saying "hello world". We can do this by adding more routes to our app.
 
-## Add an error handler
-
-```js
-// get anything that hasn't already been matched
-app.use('*', (req, res) => {
-    // send a response with status 404
-    res.status(404).send(err);
-});
-```
 
 Now, instead of saying "CANNOT `/GET`" on all the routes we haven't set up, it'll send back an error instead.
 
