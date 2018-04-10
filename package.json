@@ -1,0 +1,25 @@
+{
+  "name": "node-express-routes-lesson",
+  "version": "1.0.0",
+  "description": "### Learning Objectives:",
+  "main": "demo-server.js",
+  "dependencies": {
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  },
+  "scripts": {
+    "start": "node demo-server.js",
+    "dev": "nodemon demo-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.generalassemb.ly:wdi-nyc/node-express-routes-lesson.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
