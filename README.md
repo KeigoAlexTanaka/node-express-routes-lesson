@@ -19,8 +19,8 @@ In `server.js`:
 
 ```js
 // index route
-app.get('/', (req, res) => {
-    res.send('Hello world!');
+app.get('/', (request, response) => {
+    response.send('Hello world!');
 });
 ```
 
@@ -59,20 +59,22 @@ Now, instead of saying "CANNOT `/GET`" on all the routes we haven't set up, it'l
 
 ## Add our first additional route
 
-Since this is a quotes app, we need to have a route that gives information about quotes!
+Since this is a quotes app, we need to have a route that displays quotes on a page.
 
 ```js
-app.get('/quotes', (req, res) => {
-  res.send('Info about quotes!');
+app.get('/quotes', (request, response) => {
+  response.send('<html><body><h1>A page of Quotes!</h1></body></html>');
 });
 ```
 
-But let's say we wanted to send back JSON data, for example, instead of just plain text. We can change `res.send` to `res.json`:
+But let's say we wanted to send back JSON data, for example, instead of just plain text.
+We would add `.json` onto the path to make clear the route responds with JSON,
+and use `response.json()` to send back JSON.
 
 
 ```js
-app.get('/quotes', (req, res) => {
-  res.json({
+app.get('/quotes.json', (request, response) => {
+  response.json({
     message: 'ok',
     quotes: [
       {
@@ -102,8 +104,8 @@ We can also put our data into a separate file and import it, using `module.expor
 
 ```js
 const quotes = require('./db/quotes-data');
-app.get('/quotes', (req, res) => {
-  res.json({
+app.get('/quotes.json', (request, response) => {
+  response.json({
     message: 'ok',
     data: quotes,
   });
@@ -126,8 +128,8 @@ A route with params looks like this: `/quotes/:id`. The `id` stands for the vari
 So if I was to say something like:
 
 ```js
-app.get('/:id', (req, res) => {
-  res.send(`${req.params.id} is awesome!!!!!`);
+app.get('/:id', (request, response) => {
+  response.send(`${req.params.id} is awesome!!!!!`);
 });
 ```
 
@@ -136,11 +138,11 @@ I could go to any endpoint on localhost and get the text "[whatever thing I put 
 I can also use the params to programmatically get information from my database, like so:
 
 ```js
-app.get('/quotes/:id', (req, res) => {
+app.get('/quotes/:id.json', (request, response) => {
   const requestedQuote = quotes.filter((quote) => {
     return quote.id == req.params.id;
   });
-  res.json({
+  response.json({
     message: 'ok',
     data: requestedQuote[0],
   });
@@ -153,60 +155,6 @@ This returns the quote object from my quotes array where the id of the object ma
 
 Catch up in `quotes-begin`.
 - In `server.js`, add a route for GETting `quotes/:id`, where `:id` is a number passed in from the server. The app should send back data about one quote with that particular ID.
-
-# Separating Concerns
-
-Now, leaving all our routes in our `server.js` may _seem_ like a good idea, but once our app starts to scale, we need to start _separating our concerns_. The MVC pattern itself places a lot of emphasis on modularity, as does node as a whole.
-
-One way we can improve the modularity of our apps is by taking the routes out of `server.js` and putting them in their own routes directory.
-
-- `mkdir routes` & cd into it
-- `touch quote-routes.js`
-
-### Initializing Express Router
-
-In `routes/quote-routes.js`:
-
-```js
-const express = require('express');
-const quoteRoutes = express.Router();
-```
-
-What this does is it initializes a new instance of express's router. Instead of having to say `app.get(whatever)` for all our different endpoints, we can create multiple instances of express router and use them for individual endpoints.
-
-[HERE](http://expressjs.com/en/api.html#express.router) is the docs for Express Router. Check them out!
-
-So, we know we're using `/quotes` as an endpoint. Our `quoteRoutes` will control all the endpoints for `/quotes`. So, in `quote-routes`, we can say:
-
-```js
-// still have to import the quote data
-const quoteInfo = require('../db/quotes-data');
-
-// the root route, `/quotes`
-quoteRoutes.get('/', (req, res) => {
-  res.json({
-    message: 'ok',
-    data: quotes,
-  });
-});
-
-// need to export the files
-module.exports = quoteRoutes;
-```
-
-We can move over the `/quotes/:id` route as well.
-
-### Telling our app to use the new route
-
-Now, in `server.js`, we can import the new route, like so:
-
-```js
-// below the index route
-const quoteRoutes = require('./routes/quote-routes');
-app.use('/quotes', quoteRoutes);
-```
-
-We can create and import as many routes as we want.
 
 ## 🚀 LAB!
 
@@ -234,8 +182,8 @@ app.use(express.static('public'));
 Finally, we tell our root route to send the `index.html` file
 
 ```js
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get('/', (request, response) => {
+  response.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 ```
 
