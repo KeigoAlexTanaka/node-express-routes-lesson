@@ -116,7 +116,7 @@ app.get('/quotes.json', (request, response) => {
 
 Catch up in `quotes-begin`.
 - Within `quotes-begin`, run `npm install` to install the dependencies.
-- In `server.js`, add a route for GETting `/quotes` that sends back the data in `./db/quotes-data.js`.
+- In `server.js`, add a route for GETting `/quotes.json` that sends back the data in `./db/quotes-data.js`.
 - Also, what file we included to ignore node_modules and not push it to gitHub? Don't forget to include it ;)
 
 # Params
