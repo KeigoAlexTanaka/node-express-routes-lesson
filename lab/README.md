@@ -19,11 +19,3 @@ Your app should have the following routes:
 
 Bonus:
 * add some pictures of candies and display it on the page when a certain endpoint is hit.
-
-### Once You are Satisfied:
-
-Share your link, **of your locally running web server**, using NGROK:
-
-- Go to: [https://ngrok.com/](https://ngrok.com/) and dowload for mac
-- Follow the rest of the instructions [here](https://gist.github.com/wosephjeber/aa174fb851dfe87e644e)
-- Slack the link to your ngok 🎉
