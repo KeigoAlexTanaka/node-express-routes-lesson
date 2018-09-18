@@ -186,6 +186,7 @@ app.get('/', (request, response) => {
   response.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 ```
+**Note:** `__dirname` returns the directory that the currently executing script is in.
 
 Now we can add JavaScript to that HTML file to make requests to our backend.
 
