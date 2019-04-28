@@ -71,7 +71,7 @@ The above two `npm` commands will be necessary for every new web application tha
 
 #### 2. Server Setup
 
-1. Write some boilerplate code for a simple server.  Remember to require express, call the `express` function to create a server, and tell the server to  start listening.
+1. Write some boilerplate code for a simple server.  Remember to require express, call the `express` function to create a server, and tell the server to  start listening. **Note:** `process.env.PORT || 3000` means "in production use the production port, otherwise use 3000 (for development)". 
 
 	`server.js`
 	  
@@ -80,6 +80,8 @@ The above two `npm` commands will be necessary for every new web application tha
 	const express = require('express');
 	const app = express();
 	
+	const PORT = process.env.PORT || 3000
+	
 	// Middleware
 	app.use(express.static('public'));
 	
@@ -87,9 +89,9 @@ The above two `npm` commands will be necessary for every new web application tha
 	// ... coming soon
 	
 	// Server Start
-	app.listen(3000, () => {
-		console.log("HTTP server listening at localhost:3000");
-	});
+	app.listen(PORT, () => {
+	  console.log(`Listening on port ${PORT}`);
+	})
 	
 	```
 
@@ -115,7 +117,7 @@ app.get("/", (req, res) => {
   res.send('Hello World');
 });
 ```
-Your browser should return `Hello World`
+Your browser should return `Hello World`.
 
 </details>
 
@@ -219,6 +221,8 @@ app.listen(3000, () => {
 
 What should we expect to see rendered in the browser window?
 
+> You should see our burgers when you use Postman to request the http://localhost:3000/api/burgers URL. You could also try using curl: curl -X GET http://localhost:3000/api/burgers or just your browser.
+
 ## Add our first additional route
 
 We're building a quotes app; therefore, we need to have a route that displays quotes on a page. One way to accomplish that is to use `response.send()` to send back HTML.
@@ -279,7 +283,7 @@ Catch up in `quotes-begin`.
 - In `server.js`, add a route for GETting `/quotes.json` that sends back the data in `./db/quotes-data.js`.
 - Also, what file do we need to include to ignore node_modules and not push it to gitHub? Don't forget to include it.
 
-# Parameterized URLs
+## Parameterized URLs
 
 What if we want to create an app that can dynamically say hello to anyone?
 
@@ -490,7 +494,7 @@ app.get('/', (request, response) => {
 
 Now we can add JavaScript to that HTML file to make requests to our backend.
 
-### POST
+## POST Route
 
 Up until now, we've used the HTTP method `GET` to _retrieve_ data from web APIs - either third-party APIs or a few very simple ones we've created.  
 
@@ -539,7 +543,7 @@ Let's look at _some_ routes for a cities **resource**.
 
 **REST** is a convention for writing routes in a standard way to make it easier to work with **resources** across the web.  We'll talk more about this, as it's an important theme in modern API design.
 
-### Intro to Middleware and `body-parser`
+## Intro to Middleware and `body-parser`
 
 Middleware allows us to intercept the request and response before they're processed by their actual route handler.
 
@@ -590,7 +594,7 @@ app.post('/api/quotes', function quotesCreate(request, response) {
 
 Click [HERE](./lab/README.md) and follow the instructions.
 
-### Closing Thoughts
+## Closing Thoughts
 
 * Use dynamic url parameters, like `/api/burgers/:index` and `/api/tacos/:index`, to request data about a specific resource. Access them on the server in the `request.params` object.
 * Use query string parameters for dynamic requests to serve up dynamic responses. Access them on the server in the `request.query` object.
@@ -600,7 +604,7 @@ This will be essential knowledge for building and interacting with applications 
 
 We'll use `PUT` or `PATCH` to send data to update item information on the server side (instead of `POST`), and we'll use `DELETE` to delete items on the server side.
 
-### Additional Resources
+## Additional Resources
 
 0. [In-depth HTTP Intro](http://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177)
 1. [Starting an Express Project](http://expressjs.com/starter/installing.html)
