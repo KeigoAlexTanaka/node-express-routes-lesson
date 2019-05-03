@@ -43,14 +43,14 @@ Let's start a simple **Express** application.
 
 The folder structure will look like the following:
 
-	```
+```
 	express_routes
 	├── node_modules/
 	    └── express/
 	├── server.js  
 	├── package.json
 	...
-	```
+```
 
 ##### Check for Understanding
 
@@ -107,7 +107,7 @@ The above two `npm` commands will be necessary for every new web application tha
 
 <details>
 
-<summary>Visit [localhost:3000/]() in your browser. Why don't we see anything yet? How can we show something here?</summary>
+<summary>Visit [localhost:3000](http://localhost:3000) in your browser. Why don't we see anything yet? How can we show something here?</summary>
 
 There aren't any routes yet. Add the following to the routes section of your `server.js` file and refresh the browser window:
 
@@ -281,7 +281,7 @@ app.get('/quotes.json', (request, response) => {
 Catch up in `quotes-begin`.
 - Within `quotes-begin`, run `npm install` to install the dependencies.
 - In `server.js`, add a route for GETting `/quotes.json` that sends back the data in `./db/quotes-data.js`.
-- Also, what file do we need to include to ignore node_modules and not push it to gitHub? Don't forget to include it.
+- Also, what file do we need to include to ignore node_modules and not push it to GitHub? Don't forget to include it.
 
 ## Parameterized URLs
 
@@ -567,11 +567,12 @@ To add the `body-parser` middleware to your app:
   const bodyParser = require('body-parser');
   ```
 
-3. Include the middleware in the app with `app.use`. (The url encoding is configuration.)
+3. Include the middleware in the app with `app.use`. (The url encoding is configuration). The app object registers middleware with the use method. The use method accepts a function as a parameter; this function is middleware.
 
   ```js
   app.use(bodyParser.urlencoded({ extended: false }));
   ```
+When the app receives a request, this middleware will parse the request body as JSON and make it accessible from the request's body property.
 
 #### Using `body-parser`
 
