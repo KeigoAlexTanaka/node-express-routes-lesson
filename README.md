@@ -107,7 +107,7 @@ The above two `npm` commands will be necessary for every new web application tha
 
 <details>
 
-<summary>Visit [localhost:3000/](localhost:3000/) in your browser. Why don't we see anything yet? How can we show something here?</summary>
+<summary>Visit [http://localhost:3000/](http://localhost:3000/) in your browser. Why don't we see anything yet? How can we show something here?</summary>
 
 There aren't any routes yet. Add the following to the routes section of your `server.js` file and refresh the browser window:
 
